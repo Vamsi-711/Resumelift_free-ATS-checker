@@ -6,7 +6,7 @@ const path = require("path");
 // ─── PUT YOUR FREE GROQ API KEY HERE ────────────────────────────────────────
 // Get it FREE at: https://console.groq.com → API Keys → Create API Key
 // No credit card needed! Works in India!
-const GROQ_API_KEY = "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";
+const GROQ_API_KEY = "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";
 // ────────────────────────────────────────────────────────────────────────────
 
 const PORT = 3000;
