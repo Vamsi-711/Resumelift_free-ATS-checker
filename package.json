@@ -1,9 +1,4 @@
 {
   "name": "resumelift",
-  "version": "1.0.0",
-  "description": "ATS Resume Scorer powered by Groq AI",
-  "scripts": {
-    "start": "node server.js",
-    "build": "echo build skipped"
-  }
+  "version": "1.0.0"
 }
