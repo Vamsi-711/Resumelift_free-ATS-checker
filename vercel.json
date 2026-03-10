@@ -1,6 +1,11 @@
 {
   "version": 2,
-  "buildCommand": null,
-  "outputDirectory": ".",
-  "installCommand": "echo skip"
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "api/analyze.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/analyze", "dest": "/api/analyze.js" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
 }
