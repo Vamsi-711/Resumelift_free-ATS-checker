@@ -6,9 +6,9 @@ Buit by Vamsi Markandeya.
 ## 🚀 Run Locally (VS Code)
 
 1. Open the `resumelift` folder in VS Code
-2. Open `server.js` and paste your Anthropic API key:
+2. Open `server.js` and paste your groq API key:
    ```js
-   const Grok_API_KEY = "-YOUR-KEY-HERE";
+   const Groq_API_KEY = "-YOUR-KEY-HERE";
    ```
 3. Open the VS Code terminal and run:
    ```bash
@@ -32,7 +32,7 @@ Buit by Vamsi Markandeya.
 3. Follow the prompts (free account, no credit card needed)
 4. Set your API key as an environment variable:
    ```bash
-   vercel env add Grok_API_KEY
+   vercel env add Groq_API_KEY
    ```
    Paste your key when prompted, select all environments.
 
