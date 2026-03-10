@@ -1,6 +1,6 @@
 const https = require("https");
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
 
   const GROQ_API_KEY = process.env.GROQ_API_KEY;
   if (!GROQ_API_KEY) {
-    res.status(500).json({ error: { message: "GROQ_API_KEY not set on server." } });
+    res.status(500).json({ error: { message: "GROQ_API_KEY not configured on server." } });
     return;
   }
 
@@ -58,7 +58,6 @@ module.exports = async (req, res) => {
     });
 
     const parsed = JSON.parse(response.body);
-
     if (parsed.error) {
       res.status(400).json({ error: { message: parsed.error.message } });
       return;
@@ -70,4 +69,4 @@ module.exports = async (req, res) => {
   } catch (e) {
     res.status(500).json({ error: { message: e.message } });
   }
-};
+}
