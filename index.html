@@ -20,190 +20,636 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
   html { scroll-behavior: smooth; }
-  body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; cursor: none; }
 
-  #cursor { width: 18px; height: 18px; background: var(--coral); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s; mix-blend-mode: multiply; }
-  #cursor-ring { width: 40px; height: 40px; border: 2px solid var(--coral); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: transform 0.15s ease-out, width 0.2s, height 0.2s; opacity: 0.5; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+    cursor: none;
+  }
 
-  .blob { position: absolute; border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; filter: blur(0px); pointer-events: none; z-index: 0; }
+  /* Custom cursor */
+  #cursor {
+    width: 18px; height: 18px;
+    background: var(--coral);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: multiply;
+  }
+  #cursor-ring {
+    width: 40px; height: 40px;
+    border: 2px solid var(--coral);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, width 0.2s, height 0.2s;
+    opacity: 0.5;
+  }
+  body:hover #cursor { opacity: 1; }
 
-  .hero { min-height: 100vh; background: linear-gradient(145deg, #fdf6ee 0%, #fde8d8 40%, #f9d5c5 100%); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 40px 24px; }
-  .blob-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,107,107,0.25), rgba(255,154,123,0.1)); top: -150px; right: -100px; animation: blobFloat 8s ease-in-out infinite; }
-  .blob-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(244,185,66,0.2), transparent 70%); bottom: -80px; left: -80px; animation: blobFloat 10s ease-in-out infinite reverse; }
-  .blob-3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(86,207,173,0.2), transparent 70%); top: 40%; left: 10%; animation: blobFloat 7s ease-in-out infinite 2s; }
-  @keyframes blobFloat { 0%,100% { transform: translate(0,0) scale(1) rotate(0deg); } 33% { transform: translate(20px,-30px) scale(1.05) rotate(5deg); } 66% { transform: translate(-15px,20px) scale(0.97) rotate(-3deg); } }
+  /* Blobs */
+  .blob {
+    position: absolute;
+    border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+    filter: blur(0px);
+    pointer-events: none;
+    z-index: 0;
+  }
 
-  .hero-inner { position: relative; z-index: 1; text-align: center; max-width: 700px; animation: heroReveal 1s cubic-bezier(0.4,0,0.2,1) both; }
-  @keyframes heroReveal { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(145deg, #fdf6ee 0%, #fde8d8 40%, #f9d5c5 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 40px 24px;
+  }
 
-  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,107,107,0.12); border: 1.5px solid rgba(255,107,107,0.3); border-radius: 50px; padding: 6px 18px; font-size: 0.78rem; font-weight: 700; color: var(--coral); letter-spacing: 0.08em; margin-bottom: 24px; animation: heroReveal 1s 0.1s both; }
+  .blob-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,107,107,0.25), rgba(255,154,123,0.1));
+    top: -150px; right: -100px;
+    animation: blobFloat 8s ease-in-out infinite;
+  }
+  .blob-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(244,185,66,0.2), transparent 70%);
+    bottom: -80px; left: -80px;
+    animation: blobFloat 10s ease-in-out infinite reverse;
+  }
+  .blob-3 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(86,207,173,0.2), transparent 70%);
+    top: 40%; left: 10%;
+    animation: blobFloat 7s ease-in-out infinite 2s;
+  }
 
-  h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 900; line-height: 1.1; color: var(--plum); margin-bottom: 20px; animation: heroReveal 1s 0.2s both; }
-  h1 em { font-style: italic; background: linear-gradient(135deg, var(--coral), var(--peach), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  @keyframes blobFloat {
+    0%,100% { transform: translate(0,0) scale(1) rotate(0deg); }
+    33% { transform: translate(20px,-30px) scale(1.05) rotate(5deg); }
+    66% { transform: translate(-15px,20px) scale(0.97) rotate(-3deg); }
+  }
 
-  .hero-sub { font-size: 1.1rem; font-weight: 400; color: var(--soft-plum); line-height: 1.7; max-width: 480px; margin: 0 auto 36px; animation: heroReveal 1s 0.3s both; }
+  .hero-inner {
+    position: relative; z-index: 1;
+    text-align: center;
+    max-width: 700px;
+    animation: heroReveal 1s cubic-bezier(0.4,0,0.2,1) both;
+  }
 
-  .hero-cta { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--coral), var(--peach)); color: white; padding: 16px 36px; border-radius: 50px; font-size: 1rem; font-weight: 800; border: none; cursor: none; box-shadow: 0 12px 40px rgba(255,107,107,0.35); text-decoration: none; transition: transform 0.25s, box-shadow 0.25s; animation: heroReveal 1s 0.4s both; }
-  .hero-cta:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 20px 50px rgba(255,107,107,0.45); }
+  @keyframes heroReveal {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,107,107,0.12);
+    border: 1.5px solid rgba(255,107,107,0.3);
+    border-radius: 50px;
+    padding: 6px 18px;
+    font-size: 0.78rem; font-weight: 700;
+    color: var(--coral); letter-spacing: 0.08em;
+    margin-bottom: 24px;
+    animation: heroReveal 1s 0.1s both;
+  }
+  .hero-badge span { font-size: 1rem; }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--plum);
+    margin-bottom: 20px;
+    animation: heroReveal 1s 0.2s both;
+  }
+  h1 em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--coral), var(--peach), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem; font-weight: 400; color: var(--soft-plum);
+    line-height: 1.7; max-width: 480px; margin: 0 auto 36px;
+    animation: heroReveal 1s 0.3s both;
+  }
+
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, var(--coral), var(--peach));
+    color: white; padding: 16px 36px;
+    border-radius: 50px; font-size: 1rem; font-weight: 800;
+    border: none; cursor: none;
+    box-shadow: 0 12px 40px rgba(255,107,107,0.35);
+    text-decoration: none;
+    transition: transform 0.25s, box-shadow 0.25s;
+    animation: heroReveal 1s 0.4s both;
+  }
+  .hero-cta:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 20px 50px rgba(255,107,107,0.45);
+  }
   .hero-cta .arrow { transition: transform 0.2s; }
   .hero-cta:hover .arrow { transform: translateX(4px); }
 
-  .float-cards { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
-  .float-card { position: absolute; background: white; border-radius: 20px; padding: 14px 18px; box-shadow: 0 8px 30px rgba(61,44,78,0.12); font-size: 0.78rem; font-weight: 700; color: var(--plum); animation: floatCard 6s ease-in-out infinite; white-space: nowrap; }
+  /* Floating cards */
+  .float-cards {
+    position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  }
+  .float-card {
+    position: absolute;
+    background: white;
+    border-radius: 20px;
+    padding: 14px 18px;
+    box-shadow: 0 8px 30px rgba(61,44,78,0.12);
+    font-size: 0.78rem; font-weight: 700;
+    color: var(--plum);
+    animation: floatCard 6s ease-in-out infinite;
+    white-space: nowrap;
+  }
   .float-card .score { font-size: 1.4rem; font-weight: 900; }
   .float-card-1 { top: 15%; left: 5%; animation-delay: 0s; }
   .float-card-2 { top: 20%; right: 5%; animation-delay: 1.5s; }
   .float-card-3 { bottom: 20%; left: 8%; animation-delay: 3s; }
   .float-card-4 { bottom: 15%; right: 8%; animation-delay: 0.8s; }
-  @keyframes floatCard { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-14px) rotate(1deg); } }
 
-  .tool-section { background: var(--warm); padding: 80px 24px; position: relative; overflow: hidden; }
+  @keyframes floatCard {
+    0%,100% { transform: translateY(0) rotate(-1deg); }
+    50% { transform: translateY(-14px) rotate(1deg); }
+  }
+
+  /* ===== MAIN TOOL ===== */
+  .tool-section {
+    background: var(--warm);
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wave-top {
+    position: absolute; top: -2px; left: 0; right: 0;
+    height: 80px; overflow: hidden;
+  }
+  .wave-top svg { width: 100%; height: 100%; }
+
   .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
-  .section-label { text-align: center; margin-bottom: 48px; }
-  .section-label h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--plum); margin-bottom: 10px; }
+
+  .section-label {
+    text-align: center; margin-bottom: 48px;
+  }
+  .section-label h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--plum); margin-bottom: 10px;
+  }
   .section-label p { color: var(--muted); font-size: 1rem; }
 
-  .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+  /* Upload area */
+  .upload-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
   @media(max-width:700px){ .upload-grid { grid-template-columns:1fr; } }
 
-  .card { background: white; border-radius: 28px; padding: 28px; box-shadow: 0 4px 30px rgba(61,44,78,0.07); transition: transform 0.3s, box-shadow 0.3s; }
+  .card {
+    background: white;
+    border-radius: 28px;
+    padding: 28px;
+    box-shadow: 0 4px 30px rgba(61,44,78,0.07);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
   .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(61,44,78,0.12); }
-  .card-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+
+  .card-label {
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
   .card-label span { font-size: 1rem; }
 
-  .drop-zone { border: 2.5px dashed rgba(255,107,107,0.3); border-radius: 18px; padding: 24px; text-align: center; cursor: none; transition: all 0.25s; margin-bottom: 14px; background: rgba(255,107,107,0.02); }
-  .drop-zone:hover, .drop-zone.dragover { border-color: var(--coral); background: rgba(255,107,107,0.05); transform: scale(1.01); }
+  .drop-zone {
+    border: 2.5px dashed rgba(255,107,107,0.3);
+    border-radius: 18px;
+    padding: 24px;
+    text-align: center;
+    cursor: none;
+    transition: all 0.25s;
+    margin-bottom: 14px;
+    background: rgba(255,107,107,0.02);
+  }
+  .drop-zone:hover, .drop-zone.dragover {
+    border-color: var(--coral);
+    background: rgba(255,107,107,0.05);
+    transform: scale(1.01);
+  }
   .drop-icon { font-size: 2rem; margin-bottom: 6px; }
   .drop-text { font-size: 0.82rem; color: var(--muted); font-weight: 600; }
   .drop-sub { font-size: 0.72rem; color: #bba8cc; margin-top: 4px; }
 
-  textarea { width: 100%; border: 2px solid rgba(61,44,78,0.08); border-radius: 18px; padding: 16px; font-family: 'Nunito', sans-serif; font-size: 0.85rem; color: var(--text); resize: vertical; outline: none; background: white; transition: border-color 0.2s, box-shadow 0.2s; line-height: 1.6; min-height: 220px; }
-  textarea:focus { border-color: var(--coral); box-shadow: 0 0 0 4px rgba(255,107,107,0.1); }
+  textarea {
+    width: 100%; border: 2px solid rgba(61,44,78,0.08);
+    border-radius: 18px; padding: 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem; color: var(--text);
+    resize: vertical; outline: none; background: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    line-height: 1.6; min-height: 220px;
+  }
+  textarea:focus {
+    border-color: var(--coral);
+    box-shadow: 0 0 0 4px rgba(255,107,107,0.1);
+  }
   textarea::placeholder { color: #c4b0d6; }
+
   .char-count { font-size: 0.72rem; color: var(--muted); text-align: right; margin-top: 6px; }
 
-  .analyze-btn { width: 100%; padding: 20px; background: linear-gradient(135deg, var(--plum) 0%, var(--soft-plum) 100%); color: white; border: none; border-radius: 20px; font-family: 'Nunito', sans-serif; font-size: 1.05rem; font-weight: 800; cursor: none; transition: all 0.3s; box-shadow: 0 8px 30px rgba(61,44,78,0.25); position: relative; overflow: hidden; letter-spacing: 0.02em; }
-  .analyze-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--coral), var(--peach)); opacity: 0; transition: opacity 0.3s; }
+  /* Analyze button */
+  .analyze-btn {
+    width: 100%; padding: 20px;
+    background: linear-gradient(135deg, var(--plum) 0%, var(--soft-plum) 100%);
+    color: white; border: none; border-radius: 20px;
+    font-family: 'Nunito', sans-serif; font-size: 1.05rem; font-weight: 800;
+    cursor: none; transition: all 0.3s;
+    box-shadow: 0 8px 30px rgba(61,44,78,0.25);
+    position: relative; overflow: hidden;
+    letter-spacing: 0.02em;
+  }
+  .analyze-btn::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--coral), var(--peach));
+    opacity: 0; transition: opacity 0.3s;
+  }
   .analyze-btn:hover::before { opacity: 1; }
   .analyze-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255,107,107,0.35); }
   .analyze-btn span { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .analyze-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-  .loading-overlay { display: none; text-align: center; padding: 60px 24px; }
+  /* Loading */
+  .loading-overlay {
+    display: none;
+    text-align: center; padding: 60px 24px;
+  }
   .loading-overlay.active { display: block; }
   .loading-dots { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; }
-  .dot { width: 14px; height: 14px; border-radius: 50%; animation: dotBounce 1.4s ease-in-out infinite; }
+  .dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    animation: dotBounce 1.4s ease-in-out infinite;
+  }
   .dot:nth-child(1) { background: var(--coral); animation-delay: 0s; }
   .dot:nth-child(2) { background: var(--gold); animation-delay: 0.2s; }
   .dot:nth-child(3) { background: var(--mint); animation-delay: 0.4s; }
-  @keyframes dotBounce { 0%,80%,100% { transform: scale(0.8) translateY(0); } 40% { transform: scale(1.2) translateY(-12px); } }
-  .loading-text { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--plum); margin-bottom: 8px; }
+  @keyframes dotBounce {
+    0%,80%,100% { transform: scale(0.8) translateY(0); }
+    40% { transform: scale(1.2) translateY(-12px); }
+  }
+  .loading-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; color: var(--plum); margin-bottom: 8px;
+  }
   .loading-sub { color: var(--muted); font-size: 0.88rem; }
 
-  .error-msg { background: rgba(255,107,107,0.08); border: 2px solid rgba(255,107,107,0.25); border-radius: 16px; padding: 14px 20px; color: #c0392b; font-size: 0.85rem; font-weight: 600; margin-top: 12px; display: none; }
+  /* Error */
+  .error-msg {
+    background: rgba(255,107,107,0.08);
+    border: 2px solid rgba(255,107,107,0.25);
+    border-radius: 16px; padding: 14px 20px;
+    color: #c0392b; font-size: 0.85rem; font-weight: 600;
+    margin-top: 12px; display: none;
+  }
   .error-msg.show { display: block; animation: shake 0.4s ease; }
-  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+  @keyframes shake {
+    0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)}
+  }
 
+  /* ===== RESULTS ===== */
   .results { display: none; animation: resultsReveal 0.7s cubic-bezier(0.4,0,0.2,1) both; }
   .results.show { display: block; }
-  @keyframes resultsReveal { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes resultsReveal {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-  .score-hero { background: linear-gradient(135deg, var(--plum) 0%, #5a3d72 100%); border-radius: 32px; padding: 48px 40px; text-align: center; margin-bottom: 28px; position: relative; overflow: hidden; box-shadow: 0 20px 60px rgba(61,44,78,0.3); }
-  .score-hero::before { content: ''; position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,107,107,0.15), transparent 70%); top: -100px; right: -100px; pointer-events: none; }
-  .score-hero::after { content: ''; position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(244,185,66,0.12), transparent 70%); bottom: -80px; left: -60px; pointer-events: none; }
-  .score-label { color: rgba(255,255,255,0.6); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px; }
-  .score-number { font-family: 'Playfair Display', serif; font-size: 7rem; font-weight: 900; line-height: 1; position: relative; z-index: 1; animation: scoreCount 1.5s cubic-bezier(0.4,0,0.2,1) both; }
-  @keyframes scoreCount { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
-  .score-grade { font-size: 1.2rem; font-weight: 800; margin-top: 8px; margin-bottom: 20px; position: relative; z-index: 1; }
-  .score-summary { color: rgba(255,255,255,0.75); font-size: 0.95rem; line-height: 1.7; max-width: 520px; margin: 0 auto; position: relative; z-index: 1; }
+  /* Score hero */
+  .score-hero {
+    background: linear-gradient(135deg, var(--plum) 0%, #5a3d72 100%);
+    border-radius: 32px;
+    padding: 48px 40px;
+    text-align: center;
+    margin-bottom: 28px;
+    position: relative; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(61,44,78,0.3);
+  }
+  .score-hero::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,107,107,0.15), transparent 70%);
+    top: -100px; right: -100px; pointer-events: none;
+  }
+  .score-hero::after {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(244,185,66,0.12), transparent 70%);
+    bottom: -80px; left: -60px; pointer-events: none;
+  }
 
-  .categories { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 28px; }
+  .score-label {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .score-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 7rem; font-weight: 900;
+    line-height: 1; position: relative; z-index: 1;
+    animation: scoreCount 1.5s cubic-bezier(0.4,0,0.2,1) both;
+  }
+  @keyframes scoreCount {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .score-grade {
+    font-size: 1.2rem; font-weight: 800; margin-top: 8px; margin-bottom: 20px;
+    position: relative; z-index: 1;
+  }
+
+  .score-summary {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.95rem; line-height: 1.7;
+    max-width: 520px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+
+  /* Category scores */
+  .categories {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 16px;
+    margin-bottom: 28px;
+  }
   @media(max-width:650px){ .categories { grid-template-columns: 1fr 1fr; } }
-  .cat-card { background: white; border-radius: 24px; padding: 22px 18px; box-shadow: 0 4px 20px rgba(61,44,78,0.07); transition: transform 0.3s; animation: catReveal 0.5s ease both; }
+
+  .cat-card {
+    background: white; border-radius: 24px; padding: 22px 18px;
+    box-shadow: 0 4px 20px rgba(61,44,78,0.07);
+    transition: transform 0.3s;
+    animation: catReveal 0.5s ease both;
+  }
   .cat-card:hover { transform: translateY(-4px); }
-  @keyframes catReveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes catReveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
   .cat-icon { font-size: 1.6rem; margin-bottom: 8px; }
   .cat-name { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 8px; }
   .cat-score { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 10px; }
   .progress-track { height: 6px; background: rgba(61,44,78,0.08); border-radius: 10px; overflow: hidden; }
   .progress-fill { height: 100%; border-radius: 10px; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); width: 0; }
 
+  /* Strengths & Issues */
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
   @media(max-width:650px){ .two-col { grid-template-columns: 1fr; } }
-  .si-card { background: white; border-radius: 24px; padding: 26px; box-shadow: 0 4px 20px rgba(61,44,78,0.07); }
-  .si-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-  .si-item { display: flex; gap: 10px; margin-bottom: 10px; font-size: 0.85rem; color: var(--text); line-height: 1.5; font-weight: 500; }
+
+  .si-card {
+    background: white; border-radius: 24px; padding: 26px;
+    box-shadow: 0 4px 20px rgba(61,44,78,0.07);
+  }
+  .si-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .si-item {
+    display: flex; gap: 10px; margin-bottom: 10px; font-size: 0.85rem;
+    color: var(--text); line-height: 1.5; font-weight: 500;
+  }
   .si-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
 
+  /* Tabs */
   .tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-  .tab-btn { padding: 10px 22px; border-radius: 50px; border: 2px solid transparent; font-family: 'Nunito', sans-serif; font-size: 0.82rem; font-weight: 700; cursor: none; transition: all 0.2s; background: white; color: var(--muted); box-shadow: 0 2px 10px rgba(61,44,78,0.08); }
-  .tab-btn.active { background: linear-gradient(135deg, var(--coral), var(--peach)); color: white; border-color: transparent; box-shadow: 0 6px 20px rgba(255,107,107,0.3); }
+  .tab-btn {
+    padding: 10px 22px; border-radius: 50px; border: 2px solid transparent;
+    font-family: 'Nunito', sans-serif; font-size: 0.82rem; font-weight: 700;
+    cursor: none; transition: all 0.2s; background: white;
+    color: var(--muted); box-shadow: 0 2px 10px rgba(61,44,78,0.08);
+  }
+  .tab-btn.active {
+    background: linear-gradient(135deg, var(--coral), var(--peach));
+    color: white; border-color: transparent;
+    box-shadow: 0 6px 20px rgba(255,107,107,0.3);
+  }
   .tab-btn:hover:not(.active) { border-color: rgba(255,107,107,0.3); color: var(--coral); }
+
   .tab-content { display: none; }
   .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
   @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
-  .suggestion { background: white; border-radius: 22px; padding: 22px 24px; margin-bottom: 14px; box-shadow: 0 4px 18px rgba(61,44,78,0.07); border-left: 5px solid transparent; transition: transform 0.25s, box-shadow 0.25s; animation: sugReveal 0.4s ease both; }
+  /* Suggestions */
+  .suggestion {
+    background: white; border-radius: 22px; padding: 22px 24px;
+    margin-bottom: 14px; box-shadow: 0 4px 18px rgba(61,44,78,0.07);
+    border-left: 5px solid transparent;
+    transition: transform 0.25s, box-shadow 0.25s;
+    animation: sugReveal 0.4s ease both;
+  }
   .suggestion:hover { transform: translateX(4px); box-shadow: 0 8px 28px rgba(61,44,78,0.12); }
   @keyframes sugReveal { from{opacity:0;transform:translateX(-15px)} to{opacity:1;transform:translateX(0)} }
   .sug-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
   .sug-title { font-weight: 800; font-size: 0.92rem; color: var(--plum); }
-  .priority-pill { padding: 3px 12px; border-radius: 20px; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+  .priority-pill {
+    padding: 3px 12px; border-radius: 20px;
+    font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  }
   .sug-cat { font-size: 0.7rem; color: var(--muted); font-weight: 700; margin-left: auto; text-transform: uppercase; letter-spacing: 0.06em; }
   .sug-desc { font-size: 0.83rem; color: #6b5f7a; line-height: 1.65; margin-bottom: 10px; }
-  .sug-example { background: linear-gradient(135deg, rgba(255,107,107,0.06), rgba(255,154,123,0.06)); border-radius: 12px; padding: 12px 16px; font-size: 0.78rem; color: var(--soft-plum); line-height: 1.5; border-left: 3px solid rgba(255,107,107,0.3); font-weight: 600; }
+  .sug-example {
+    background: linear-gradient(135deg, rgba(255,107,107,0.06), rgba(255,154,123,0.06));
+    border-radius: 12px; padding: 12px 16px;
+    font-size: 0.78rem; color: var(--soft-plum); line-height: 1.5;
+    border-left: 3px solid rgba(255,107,107,0.3); font-weight: 600;
+  }
   .sug-example-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--coral); font-weight: 800; margin-bottom: 4px; }
 
+  /* Keywords */
   .kw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media(max-width:600px){ .kw-grid { grid-template-columns: 1fr; } }
   .kw-card { background: white; border-radius: 22px; padding: 24px; box-shadow: 0 4px 18px rgba(61,44,78,0.07); }
-  .kw-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .kw-title {
+    font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700;
+    margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+  }
   .kw-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip { padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; transition: transform 0.2s; animation: chipPop 0.4s cubic-bezier(0.4,0,0.2,1) both; }
+  .chip {
+    padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+    transition: transform 0.2s;
+    animation: chipPop 0.4s cubic-bezier(0.4,0,0.2,1) both;
+  }
   .chip:hover { transform: scale(1.06); }
   @keyframes chipPop { from{opacity:0;transform:scale(0.7)} to{opacity:1;transform:scale(1)} }
   .chip-good { background: rgba(86,207,173,0.12); color: #2d9b7f; border: 1.5px solid rgba(86,207,173,0.3); }
   .chip-miss { background: rgba(255,107,107,0.1); color: #c0392b; border: 1.5px solid rgba(255,107,107,0.25); }
 
+  /* ATS checklist */
   .checklist { display: flex; flex-direction: column; gap: 12px; }
-  .check-item { display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-radius: 18px; background: white; box-shadow: 0 3px 14px rgba(61,44,78,0.07); font-size: 0.88rem; font-weight: 600; color: var(--text); animation: checkReveal 0.4s ease both; transition: transform 0.2s; }
+  .check-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 20px; border-radius: 18px;
+    background: white; box-shadow: 0 3px 14px rgba(61,44,78,0.07);
+    font-size: 0.88rem; font-weight: 600; color: var(--text);
+    animation: checkReveal 0.4s ease both;
+    transition: transform 0.2s;
+  }
   .check-item:hover { transform: translateX(4px); }
   @keyframes checkReveal { from{opacity:0;transform:translateX(-10px)} to{opacity:1;transform:translateX(0)} }
-  .check-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .check-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
 
-  .reset-btn { background: white; border: 2px solid rgba(61,44,78,0.12); border-radius: 16px; padding: 12px 28px; font-family: 'Nunito', sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--muted); cursor: none; transition: all 0.2s; margin-bottom: 28px; }
+  /* Reset button */
+  .reset-btn {
+    background: white; border: 2px solid rgba(61,44,78,0.12);
+    border-radius: 16px; padding: 12px 28px;
+    font-family: 'Nunito', sans-serif; font-size: 0.88rem; font-weight: 700;
+    color: var(--muted); cursor: none; transition: all 0.2s;
+    margin-bottom: 28px;
+  }
   .reset-btn:hover { border-color: var(--coral); color: var(--coral); transform: translateY(-2px); }
 
-  .features-section { background: var(--cream); padding: 80px 24px; position: relative; overflow: hidden; }
+  /* ===== FEATURES ===== */
+  .features-section {
+    background: var(--cream);
+    padding: 80px 24px;
+    position: relative; overflow: hidden;
+  }
   .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 1000px; margin: 0 auto; }
   @media(max-width:700px){ .features-grid { grid-template-columns: 1fr; } }
-  .feat-card { background: white; border-radius: 28px; padding: 32px 26px; box-shadow: 0 4px 24px rgba(61,44,78,0.08); transition: transform 0.35s, box-shadow 0.35s; position: relative; overflow: hidden; }
+  .feat-card {
+    background: white; border-radius: 28px; padding: 32px 26px;
+    box-shadow: 0 4px 24px rgba(61,44,78,0.08);
+    transition: transform 0.35s, box-shadow 0.35s;
+    position: relative; overflow: hidden;
+  }
   .feat-card:hover { transform: translateY(-8px); box-shadow: 0 16px 50px rgba(61,44,78,0.15); }
+  .feat-card::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 120px; height: 120px; border-radius: 50%;
+    opacity: 0.08; transition: opacity 0.3s;
+  }
+  .feat-card:hover::before { opacity: 0.14; }
   .feat-emoji { font-size: 2.4rem; margin-bottom: 16px; display: block; }
   .feat-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--plum); margin-bottom: 10px; }
   .feat-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
 
-  footer { background: var(--plum); color: rgba(255,255,255,0.5); text-align: center; padding: 36px 24px; font-size: 0.82rem; }
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--plum);
+    color: rgba(255,255,255,0.5);
+    text-align: center; padding: 36px 24px;
+    font-size: 0.82rem;
+  }
   footer strong { color: var(--peach); }
 
-  #watermark { position: fixed; bottom: 22px; right: 26px; z-index: 9995; pointer-events: all; cursor: none; text-decoration: none; animation: wmFloat 4s ease-in-out infinite; }
-  #watermark:hover #watermark-inner { background: rgba(255,107,107,0.88); border-color: rgba(255,255,255,0.3); box-shadow: 0 10px 36px rgba(255,107,107,0.45), 0 0 0 1px rgba(255,255,255,0.1) inset; transform: scale(1.06); }
-  #watermark-inner { display: flex; align-items: center; gap: 8px; background: rgba(61,44,78,0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1.5px solid rgba(255,107,107,0.25); border-radius: 50px; padding: 8px 16px 8px 10px; box-shadow: 0 6px 28px rgba(61,44,78,0.35), 0 0 0 1px rgba(255,255,255,0.05) inset; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); }
-  .wm-avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--coral), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; color: white; flex-shrink: 0; box-shadow: 0 0 0 2px rgba(255,107,107,0.35); }
-  .wm-text { display: flex; flex-direction: column; line-height: 1.2; }
-  .wm-made { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-family: 'Nunito', sans-serif; }
-  .wm-name { font-family: 'Playfair Display', serif; font-size: 0.82rem; font-weight: 700; background: linear-gradient(135deg, #ff9a7b, #f4b942); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  @keyframes wmFloat { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-5px); } }
+  /* Watermark */
+  #watermark {
+    position: fixed;
+    bottom: 22px;
+    right: 26px;
+    z-index: 9995;
+    pointer-events: all;
+    cursor: none;
+    text-decoration: none;
+    animation: wmFloat 4s ease-in-out infinite;
+  }
+  #watermark:hover #watermark-inner {
+    background: rgba(255,107,107,0.88);
+    border-color: rgba(255,255,255,0.3);
+    box-shadow: 0 10px 36px rgba(255,107,107,0.45), 0 0 0 1px rgba(255,255,255,0.1) inset;
+    transform: scale(1.06);
+  }
+  #watermark-inner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(61,44,78,0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255,107,107,0.25);
+    border-radius: 50px;
+    padding: 8px 16px 8px 10px;
+    box-shadow: 0 6px 28px rgba(61,44,78,0.35), 0 0 0 1px rgba(255,255,255,0.05) inset;
+    transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+  }
+  .wm-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--coral), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 900; color: white;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 2px rgba(255,107,107,0.35);
+  }
+  .wm-text {
+    display: flex; flex-direction: column; line-height: 1.2;
+  }
+  .wm-made {
+    font-size: 0.58rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
+    font-family: 'Nunito', sans-serif;
+  }
+  .wm-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.82rem; font-weight: 700;
+    background: linear-gradient(135deg, #ff9a7b, #f4b942);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  @keyframes wmFloat {
+    0%,100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+  }
 
-  .particle { position: fixed; pointer-events: none; z-index: 9990; border-radius: 3px; animation: particleFall 3s ease-in forwards; }
-  @keyframes particleFall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+  /* Confetti particles */
+  .particle {
+    position: fixed; pointer-events: none; z-index: 9990;
+    border-radius: 3px;
+    animation: particleFall 3s ease-in forwards;
+  }
+  @keyframes particleFall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
 </style>
 </head>
 <body>
 
+<!-- Custom cursor -->
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 
+<!-- Watermark -->
 <a id="watermark" href="https://yerra-vamsi-markandeya.vercel.app/" target="_blank" rel="noopener noreferrer">
   <div id="watermark-inner">
     <div class="wm-avatar">V</div>
@@ -214,10 +660,12 @@
   </div>
 </a>
 
+<!-- ===== HERO ===== -->
 <section class="hero">
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
+
   <div class="float-cards">
     <div class="float-card float-card-1">
       <div style="color:#9b8aac;font-size:0.68rem;margin-bottom:2px">ATS SCORE</div>
@@ -238,25 +686,55 @@
   </div>
 
   <div class="hero-inner">
-    <div class="hero-badge"><span>✨</span> AI-Powered Resume Analysis</div>
-    <div style="margin-bottom:10px;animation:heroReveal 1s 0.1s both;">
-      <div style="font-family:'Fredoka One',cursive;font-size:clamp(3.2rem,9vw,7rem);line-height:1;letter-spacing:-0.01em;color:#3d2c4e;margin-bottom:0;">
-        <span style="background:linear-gradient(135deg,#ff6b6b 0%,#ff9a7b 40%,#f4b942 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;filter:drop-shadow(0 4px 24px rgba(255,107,107,0.25));">Resumé</span>
-        <span style="color:#3d2c4e;display:block;margin-top:-8px;">Lift<span style="background:linear-gradient(135deg,#ff6b6b,#f4b942);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">.</span></span>
+    <div class="hero-badge"><span></span> AI-Powered Resume Analysis Model</div>
+
+    <!-- Big poppy title -->
+    <div style="margin-bottom: 10px; animation: heroReveal 1s 0.1s both;">
+      <div style="
+        font-family: 'Fredoka One', cursive;
+        font-size: clamp(3.2rem, 9vw, 7rem);
+        line-height: 1;
+        letter-spacing: -0.01em;
+        color: #3d2c4e;
+        margin-bottom: 0;
+      ">
+        <span style="
+          background: linear-gradient(135deg, #ff6b6b 0%, #ff9a7b 40%, #f4b942 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          display: block;
+          filter: drop-shadow(0 4px 24px rgba(255,107,107,0.25));
+        ">Resumé</span>
+        <span style="
+          color: #3d2c4e;
+          display: block;
+          margin-top: -8px;
+        ">Lift<span style="
+          background: linear-gradient(135deg, #ff6b6b, #f4b942);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        ">.</span></span>
       </div>
     </div>
-    <h1 style="font-size:clamp(1.2rem,3vw,1.8rem);font-family:'Nunito',sans-serif;font-weight:700;color:#6b4f7f;margin-bottom:16px;animation:heroReveal 1s 0.2s both;">Get Your Resume <em style="-webkit-text-fill-color:initial;background:none;font-style:italic;color:#ff6b6b;">Interview-Ready</em></h1>
+
+    <h1 style="font-size: clamp(1.2rem, 3vw, 1.8rem); font-family: 'Nunito', sans-serif; font-weight: 700; color: #6b4f7f; margin-bottom: 16px; animation: heroReveal 1s 0.2s both;">Get Your Resume <em style="-webkit-text-fill-color:initial;background:none;font-style:italic;color:#ff6b6b;">Interview-Ready</em></h1>
     <p class="hero-sub">Paste your resume, get an instant ATS compatibility score, and discover exactly what to fix to land more interviews.</p>
-    <a href="#tool" class="hero-cta">Check My Score Now <span class="arrow">→</span></a>
+    <a href="#tool" class="hero-cta">
+      Check My Score Now <span class="arrow">→</span>
+    </a>
   </div>
 </section>
 
+<!-- Wave divider -->
 <div style="background:var(--warm);margin-top:-2px">
   <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" style="display:block;background:var(--cream)">
     <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#f5ede0"/>
   </svg>
 </div>
 
+<!-- ===== TOOL ===== -->
 <section class="tool-section" id="tool">
   <div class="container">
     <div class="section-label">
@@ -264,8 +742,11 @@
       <p>Paste your resume text below and optionally add a job description for targeted insights</p>
     </div>
 
+    <!-- Input form -->
     <div id="input-view">
+
       <div class="upload-grid">
+        <!-- Resume -->
         <div class="card">
           <div class="card-label"><span>📄</span> Your Resume</div>
           <div class="drop-zone" id="dropZone">
@@ -285,9 +766,10 @@
           <textarea id="resumeText" placeholder="Paste your full resume here — or upload a PDF/DOCX/TXT file above..." rows="8"></textarea>
           <div class="char-count" id="charCount">0 characters</div>
         </div>
+        <!-- Job Description -->
         <div class="card">
-          <div class="card-label"><span>🎯</span> Job Description <span style="color:#bba8cc;font-size:0.9em;font-weight:400">(optional)</span></div>
-          <textarea id="jobDesc" placeholder="Paste the job description here for a tailored keyword match analysis..." rows="14"></textarea>
+          <div class="card-label"><span></span> Job Description <span style="color:#bba8cc;font-size:0.9em;font-weight:400">(optional)</span></div>
+          <textarea id="jobDesc" placeholder="Paste the job description here for a tailored keyword match analysis. This helps us find exactly which skills the employer is looking for and compare them against your resume..." rows="14"></textarea>
           <div style="margin-top:14px;padding:14px;background:rgba(244,185,66,0.08);border-radius:14px;border:1.5px solid rgba(244,185,66,0.2)">
             <div style="font-size:0.75rem;font-weight:800;color:#d4920a;margin-bottom:4px">💡 Pro tip</div>
             <div style="font-size:0.78rem;color:#9b7e40;line-height:1.5">Adding a job description improves keyword analysis by 60% and gives role-specific recommendations.</div>
@@ -296,24 +778,39 @@
       </div>
 
       <div class="error-msg" id="errorMsg">⚠️ Please paste your resume text before analyzing.</div>
-      <button class="analyze-btn" id="analyzeBtn"><span>✨ Analyze My Resume</span></button>
+
+      <button class="analyze-btn" id="analyzeBtn">
+        <span> Analyze My Resume</span>
+      </button>
     </div>
 
+    <!-- Loading -->
     <div class="loading-overlay" id="loadingView">
-      <div class="loading-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <div class="loading-dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
       <div class="loading-text">Reading your resume…</div>
       <div class="loading-sub" id="loadingSubText">Hang tight while our AI works its magic ✨</div>
     </div>
 
+    <!-- Results -->
     <div class="results" id="resultsView">
       <button class="reset-btn" id="resetBtn">← Analyze Another Resume</button>
+
+      <!-- Score Hero -->
       <div class="score-hero" id="scoreHero">
         <div class="score-label">YOUR ATS SCORE</div>
         <div class="score-number" id="scoreNumber" style="color:white">—</div>
         <div class="score-grade" id="scoreGrade"></div>
         <div class="score-summary" id="scoreSummary"></div>
       </div>
+
+      <!-- Category Scores -->
       <div class="categories" id="categoriesGrid"></div>
+
+      <!-- Strengths & Issues -->
       <div class="two-col">
         <div class="si-card">
           <div class="si-title">🌟 <span>What's Working</span></div>
@@ -324,18 +821,28 @@
           <div id="issuesList"></div>
         </div>
       </div>
+
+      <!-- Tabs -->
       <div class="tabs">
         <button class="tab-btn active" data-tab="suggestions">💡 Suggestions</button>
         <button class="tab-btn" data-tab="keywords">🔑 Keywords</button>
         <button class="tab-btn" data-tab="compat">✅ ATS Checklist</button>
       </div>
-      <div class="tab-content active" id="tab-suggestions"><div id="suggestionsList"></div></div>
-      <div class="tab-content" id="tab-keywords"><div class="kw-grid" id="keywordsGrid"></div></div>
-      <div class="tab-content" id="tab-compat"><div class="checklist" id="checklistItems"></div></div>
+
+      <div class="tab-content active" id="tab-suggestions">
+        <div id="suggestionsList"></div>
+      </div>
+      <div class="tab-content" id="tab-keywords">
+        <div class="kw-grid" id="keywordsGrid"></div>
+      </div>
+      <div class="tab-content" id="tab-compat">
+        <div class="checklist" id="checklistItems"></div>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- ===== FEATURES ===== -->
 <section class="features-section">
   <div class="container">
     <div class="section-label">
@@ -343,38 +850,77 @@
       <p>A thorough analysis across every dimension that matters to recruiters</p>
     </div>
     <div class="features-grid">
-      <div class="feat-card"><span class="feat-emoji">🔍</span><div class="feat-title">Keyword Match</div><div class="feat-desc">We scan for industry-specific keywords and compare them against your resume to identify gaps that ATS systems would catch.</div></div>
-      <div class="feat-card"><span class="feat-emoji">📐</span><div class="feat-title">Format & Structure</div><div class="feat-desc">We evaluate if your resume layout, section headers, and formatting are compatible with automated parsing systems.</div></div>
-      <div class="feat-card"><span class="feat-emoji">📊</span><div class="feat-title">Impact Metrics</div><div class="feat-desc">We check if you're using numbers, percentages, and measurable achievements that make recruiters take notice.</div></div>
-      <div class="feat-card"><span class="feat-emoji">💼</span><div class="feat-title">Experience Quality</div><div class="feat-desc">We review your work history for strong action verbs, relevant accomplishments, and compelling descriptions.</div></div>
-      <div class="feat-card"><span class="feat-emoji">🎓</span><div class="feat-title">Education & Skills</div><div class="feat-desc">We verify that your credentials, certifications, and skills section are complete and properly presented.</div></div>
-      <div class="feat-card"><span class="feat-emoji">✉️</span><div class="feat-title">Contact Completeness</div><div class="feat-desc">We ensure all essential contact details, LinkedIn, and portfolio links are present and correctly formatted.</div></div>
+      <div class="feat-card" style="--c:#ff6b6b">
+        <div class="feat-card" style="position:absolute;top:-40px;right:-40px;width:120px;height:120px;background:#ff6b6b;border-radius:50%;opacity:0.08;pointer-events:none"></div>
+        <span class="feat-emoji">🔍</span>
+        <div class="feat-title">Keyword Match</div>
+        <div class="feat-desc">We scan for industry-specific keywords and compare them against your resume to identify gaps that ATS systems would catch.</div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-emoji">📐</span>
+        <div class="feat-title">Format & Structure</div>
+        <div class="feat-desc">We evaluate if your resume layout, section headers, and formatting are compatible with automated parsing systems.</div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-emoji">📊</span>
+        <div class="feat-title">Impact Metrics</div>
+        <div class="feat-desc">We check if you're using numbers, percentages, and measurable achievements that make recruiters take notice.</div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-emoji">💼</span>
+        <div class="feat-title">Experience Quality</div>
+        <div class="feat-desc">We review your work history for strong action verbs, relevant accomplishments, and compelling descriptions.</div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-emoji">🎓</span>
+        <div class="feat-title">Education & Skills</div>
+        <div class="feat-desc">We verify that your credentials, certifications, and skills section are complete and properly presented.</div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-emoji">✉️</span>
+        <div class="feat-title">Contact Completeness</div>
+        <div class="feat-desc">We ensure all essential contact details, LinkedIn, and portfolio links are present and correctly formatted.</div>
+      </div>
     </div>
   </div>
 </section>
 
-<footer>Built with love for job seekers everywhere 💛 · <strong>ResuméLift</strong></footer>
+<footer>
+  Built with love for job seekers everywhere 💛 · <strong>ResuméLift</strong>
+</footer>
 
+<!-- Mammoth.js for DOCX -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+
 <script>
+// Dynamically load PDF.js from unpkg for reliable worker support
 const PDFJS_VERSION = '3.4.120';
 const pdfJsScript = document.createElement('script');
 pdfJsScript.src = `https://unpkg.com/pdfjs-dist@${PDFJS_VERSION}/build/pdf.min.js`;
 let pdfJsReady = false;
-pdfJsScript.onload = () => { pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${PDFJS_VERSION}/build/pdf.worker.min.js`; pdfJsReady = true; };
+pdfJsScript.onload = () => {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${PDFJS_VERSION}/build/pdf.worker.min.js`;
+  pdfJsReady = true;
+};
 document.head.appendChild(pdfJsScript);
 
+// Cursor
 const cursor = document.getElementById('cursor');
 const cursorRing = document.getElementById('cursor-ring');
 document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
-  setTimeout(() => { cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px'; }, 80);
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  setTimeout(() => {
+    cursorRing.style.left = e.clientX + 'px';
+    cursorRing.style.top = e.clientY + 'px';
+  }, 80);
 });
 document.querySelectorAll('button,a,textarea,.drop-zone').forEach(el => {
   el.addEventListener('mouseenter', () => { cursor.style.width='28px'; cursor.style.height='28px'; });
   el.addEventListener('mouseleave', () => { cursor.style.width='18px'; cursor.style.height='18px'; });
 });
 
+// File drop
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 const resumeTextarea = document.getElementById('resumeText');
@@ -387,24 +933,41 @@ const dropText = document.getElementById('dropText');
 dropZone.addEventListener('click', () => fileInput.click());
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('dragover'); handleFile(e.dataTransfer.files[0]); });
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('dragover');
+  handleFile(e.dataTransfer.files[0]);
+});
 fileInput.addEventListener('change', e => handleFile(e.target.files[0]));
 
 function showFileStatus(name, pages) {
   const pageInfo = pages ? ` · ${pages} page${pages > 1 ? 's' : ''} extracted` : '';
   fileStatusText.textContent = name + ' loaded successfully!' + pageInfo;
-  fileStatus.style.cssText = 'display:flex;margin-bottom:10px;padding:10px 14px;background:rgba(86,207,173,0.08);border:1.5px solid rgba(86,207,173,0.25);border-radius:14px;font-size:0.78rem;font-weight:700;color:#2d9b7f;align-items:center;gap:8px';
-  dropIcon.textContent = '✅'; dropText.textContent = name;
+  fileStatus.style.background = 'rgba(86,207,173,0.08)';
+  fileStatus.style.border = '1.5px solid rgba(86,207,173,0.25)';
+  fileStatus.style.color = '#2d9b7f';
+  fileStatus.style.display = 'flex';
+  dropIcon.textContent = '✅';
+  dropText.textContent = name;
 }
+
 function showFileError(msg) {
+  fileStatus.style.background = 'rgba(255,107,107,0.08)';
+  fileStatus.style.border = '1.5px solid rgba(255,107,107,0.25)';
+  fileStatus.style.color = '#c0392b';
   fileStatusText.textContent = msg;
-  fileStatus.style.cssText = 'display:flex;margin-bottom:10px;padding:10px 14px;background:rgba(255,107,107,0.08);border:1.5px solid rgba(255,107,107,0.25);border-radius:14px;font-size:0.78rem;font-weight:700;color:#c0392b;align-items:center;gap:8px';
-  dropIcon.textContent = '❌'; dropText.textContent = 'Upload failed';
+  fileStatus.style.display = 'flex';
+  dropIcon.textContent = '❌';
+  dropText.textContent = 'Upload failed';
 }
+
 function showFileParsing(name) {
+  fileStatus.style.background = 'rgba(244,185,66,0.08)';
+  fileStatus.style.border = '1.5px solid rgba(244,185,66,0.3)';
+  fileStatus.style.color = '#a07000';
   fileStatusText.textContent = 'Reading ' + name + '…';
-  fileStatus.style.cssText = 'display:flex;margin-bottom:10px;padding:10px 14px;background:rgba(244,185,66,0.08);border:1.5px solid rgba(244,185,66,0.3);border-radius:14px;font-size:0.78rem;font-weight:700;color:#a07000;align-items:center;gap:8px';
-  dropIcon.textContent = '⏳'; dropText.textContent = 'Parsing…';
+  fileStatus.style.display = 'flex';
+  dropIcon.textContent = '⏳';
+  dropText.textContent = 'Parsing…';
 }
 
 function waitForPdfJs() {
@@ -413,65 +976,120 @@ function waitForPdfJs() {
     let attempts = 0;
     const interval = setInterval(() => {
       attempts++;
-      if (typeof pdfjsLib !== 'undefined' && pdfJsReady) { clearInterval(interval); resolve(); }
-      else if (attempts > 50) { clearInterval(interval); reject(new Error('PDF.js failed to load')); }
+      if (typeof pdfjsLib !== 'undefined' && pdfJsReady) {
+        clearInterval(interval); resolve();
+      } else if (attempts > 50) {
+        clearInterval(interval); reject(new Error('PDF.js failed to load'));
+      }
     }, 100);
   });
 }
 
 async function extractPdfText(arrayBuffer) {
   await waitForPdfJs();
-  const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer), verbosity: 0 }).promise;
+  const typedArray = new Uint8Array(arrayBuffer);
+  const loadingTask = pdfjsLib.getDocument({ data: typedArray, verbosity: 0 });
+  const pdf = await loadingTask.promise;
+  const numPages = pdf.numPages;
   let fullText = '';
-  for (let p = 1; p <= pdf.numPages; p++) {
-    const page = await pdf.getPage(p);
-    const tc = await page.getTextContent();
-    let lines = {};
-    tc.items.forEach(item => {
-      if (!item.str || !item.str.trim()) return;
+
+  for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+    const page = await pdf.getPage(pageNum);
+    const textContent = await page.getTextContent();
+
+    // Reconstruct text with proper spacing using transform positions
+    let pageLines = {};
+    textContent.items.forEach(item => {
+      if (!item.str || item.str.trim() === '') return;
+      // Group by Y position (rounded) to reconstruct lines
       const y = Math.round(item.transform[5]);
-      if (!lines[y]) lines[y] = [];
-      lines[y].push({ x: item.transform[4], str: item.str });
+      if (!pageLines[y]) pageLines[y] = [];
+      pageLines[y].push({ x: item.transform[4], str: item.str });
     });
-    Object.keys(lines).map(Number).sort((a,b) => b-a).forEach(y => {
-      const lineText = lines[y].sort((a,b) => a.x-b.x).map(i => i.str).join(' ').replace(/\s+/g,' ').trim();
+
+    // Sort lines by Y descending (top to bottom), then X ascending (left to right)
+    const sortedYs = Object.keys(pageLines).map(Number).sort((a, b) => b - a);
+    sortedYs.forEach(y => {
+      const lineItems = pageLines[y].sort((a, b) => a.x - b.x);
+      const lineText = lineItems.map(i => i.str).join(' ').replace(/\s+/g, ' ').trim();
       if (lineText) fullText += lineText + '\n';
     });
     fullText += '\n';
   }
-  return { text: fullText.trim(), numPages: pdf.numPages };
+
+  return { text: fullText.trim(), numPages };
 }
 
 async function handleFile(file) {
   if (!file) return;
-  const ext = file.name.split('.').pop().toLowerCase();
+  const name = file.name;
+  const ext = name.split('.').pop().toLowerCase();
+
+  // Reset
   fileStatus.style.display = 'none';
   resumeTextarea.value = '';
+
   if (ext === 'pdf') {
-    showFileParsing(file.name);
+    showFileParsing(name);
     try {
-      const { text, numPages } = await extractPdfText(await file.arrayBuffer());
-      if (!text || text.length < 50) { showFileError('PDF appears image-based. Please copy-paste text manually.'); return; }
-      resumeTextarea.value = text; updateChar(); showFileStatus(file.name, numPages);
-    } catch(e) { showFileError('Could not read PDF. Make sure it is text-based, not scanned.'); }
+      const arrayBuffer = await file.arrayBuffer();
+      const { text, numPages } = await extractPdfText(arrayBuffer);
+
+      if (!text || text.length < 50) {
+        showFileError('PDF appears to be image-based or scanned. Please copy-paste the text manually.');
+        return;
+      }
+
+      resumeTextarea.value = text;
+      updateChar();
+      showFileStatus(name, numPages);
+    } catch (e) {
+      console.error('PDF error:', e);
+      showFileError('Could not read PDF. Make sure it is a text-based PDF, not a scanned image.');
+    }
+
   } else if (ext === 'docx' || ext === 'doc') {
-    showFileParsing(file.name);
+    showFileParsing(name);
     try {
-      const result = await mammoth.extractRawText({ arrayBuffer: await file.arrayBuffer() });
-      if (!result.value.trim()) { showFileError('Word doc appears empty. Try copy-pasting.'); return; }
-      resumeTextarea.value = result.value.trim(); updateChar(); showFileStatus(file.name);
-    } catch(e) { showFileError('Could not read Word file. Try copy-pasting instead.'); }
+      const arrayBuffer = await file.arrayBuffer();
+      const result = await mammoth.extractRawText({ arrayBuffer });
+      const text = result.value.trim();
+
+      if (!text || text.length < 20) {
+        showFileError('Word document appears empty or unreadable. Try copy-pasting the text.');
+        return;
+      }
+
+      resumeTextarea.value = text;
+      updateChar();
+      showFileStatus(name);
+    } catch (e) {
+      console.error('DOCX error:', e);
+      showFileError('Could not read Word file. Try copy-pasting the text instead.');
+    }
+
   } else if (ext === 'txt' || ext === 'text') {
     const reader = new FileReader();
-    reader.onload = e => { resumeTextarea.value = e.target.result; updateChar(); showFileStatus(file.name); };
+    reader.onload = e => {
+      resumeTextarea.value = e.target.result;
+      updateChar();
+      showFileStatus(name);
+    };
     reader.onerror = () => showFileError('Could not read text file.');
     reader.readAsText(file);
-  } else { showFileError('Unsupported file. Use PDF, DOCX, or TXT.'); }
+
+  } else {
+    showFileError('Unsupported file type. Please use PDF, DOCX, or TXT.');
+  }
 }
 
 resumeTextarea.addEventListener('input', updateChar);
-function updateChar() { const n = resumeTextarea.value.length; charCount.textContent = n.toLocaleString() + ' character' + (n !== 1 ? 's' : ''); }
+function updateChar() {
+  const n = resumeTextarea.value.length;
+  charCount.textContent = n.toLocaleString() + ' character' + (n !== 1 ? 's' : '');
+}
 
+// Tabs
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -481,6 +1099,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
+// Analyze
 document.getElementById('analyzeBtn').addEventListener('click', analyze);
 document.getElementById('resetBtn').addEventListener('click', () => {
   document.getElementById('resultsView').classList.remove('show');
@@ -488,14 +1107,24 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   window.scrollTo({ top: document.getElementById('tool').offsetTop - 40, behavior: 'smooth' });
 });
 
-const loadingMessages = ['Reading your resume…','Checking keyword density…','Evaluating formatting…','Scoring your experience section…','Generating personalized suggestions…','Almost done! Polishing the results…'];
+const loadingMessages = [
+  'Reading your resume…',
+  'Checking keyword density…',
+  'Evaluating formatting…',
+  'Scoring your experience section…',
+  'Generating personalized suggestions…',
+  'Almost done! Polishing the results…'
+];
 
 async function analyze() {
   const resume = resumeTextarea.value.trim();
   const job = document.getElementById('jobDesc').value.trim();
   const errEl = document.getElementById('errorMsg');
 
-  if (!resume) { errEl.textContent = '⚠️ Please paste your resume text before analyzing.'; errEl.classList.add('show'); return; }
+  if (!resume) {
+    errEl.textContent = '⚠️ Please paste your resume text before analyzing.';
+    errEl.classList.add('show'); return;
+  }
   errEl.classList.remove('show');
 
   document.getElementById('input-view').style.display = 'none';
@@ -512,93 +1141,36 @@ async function analyze() {
     setTimeout(() => { loadingSub.textContent = loadingMessages[msgIdx]; loadingSub.style.opacity = 1; }, 200);
   }, 2200);
 
-  // Strict resume detector — must contain real resume signals
-  const resumeSignals = [
-    /\b(experience|work experience|employment|work history)\b/i,
-    /\b(education|degree|bachelor|master|phd|university|college|gpa)\b/i,
-    /\b(skills|technical skills|core competencies|proficiencies)\b/i,
-    /\b(summary|objective|profile|about me)\b/i,
-    /\b(projects?|internship|volunteer|certification)\b/i,
-  ];
-  const signalCount = resumeSignals.filter(r => r.test(resume)).length;
-  const hasContactSignals = /\b[\w.+-]+@[\w-]+\.[a-z]{2,}\b/i.test(resume) || /\+?\d[\d\s\-().]{7,}\d/.test(resume);
-  const wordCount = resume.trim().split(/\s+/).length;
-  const isRealResume = signalCount >= 2 && wordCount >= 150;
-  const resumeQuality = signalCount + (hasContactSignals ? 1 : 0); // 0-6
+  const prompt = `You are an expert ATS (Applicant Tracking System) analyst. Analyze the following resume${job ? " against the provided job description" : ""}.
 
-  const prompt = `You are a BRUTALLY STRICT and HIGHLY ACCURATE ATS (Applicant Tracking System) evaluator used by top recruiters. Your scores must reflect real-world hiring standards. Overinflated scores will cause harm to job seekers by giving them false confidence.
-
-═══════════════════════════════════════════
-MANDATORY SCORING SCALE — FOLLOW EXACTLY:
-═══════════════════════════════════════════
-0–15   → NOT a resume. Random text, invoices, articles, blank/gibberish content.
-16–30  → Extremely poor. Has maybe 1-2 resume elements but critically incomplete.
-31–45  → Very weak. Missing most sections. No quantified achievements. Poor keywords.
-46–58  → Below average. Basic sections present but thin content, weak language.
-59–70  → Average. Decent structure but needs stronger keywords and metrics.
-71–82  → Good. Well structured, relevant keywords, some measurable achievements.
-83–91  → Strong. Near ATS-ready, good keywords, quantified results, clear formatting.
-92–100 → Excellent. Perfectly optimized: quantified achievements, strong action verbs, targeted keywords, ATS-friendly format.
-
-═══════════════════════════════════════════
-HARD RULES — NEVER VIOLATE THESE:
-═══════════════════════════════════════════
-RULE 1: If the text has fewer than 2 of these sections (Contact Info, Work Experience, Education, Skills, Summary), overall score MUST be below 30. No exceptions.
-RULE 2: No quantified achievements (numbers, %, $, metrics) in work experience = workExperience score capped at 55.
-RULE 3: No dedicated skills section = skills score must be below 25.
-RULE 4: Missing contact info (no email or phone) = contactInfo score must be below 20.
-RULE 5: No action verbs (led, built, managed, designed, increased, etc.) = keywords and workExperience scores capped at 50.
-RULE 6: Resume under 200 words = overall score capped at 35.
-RULE 7: Non-resume content (random PDF, article, invoice) = overall score must be 5–18.
-${!isRealResume ? `\n⛔ CRITICAL WARNING: Signal analysis detected only ${signalCount}/5 resume sections and ${wordCount} words. This does NOT appear to be a valid resume. Apply RULE 1, 6, and 7. Overall score MUST be below ${wordCount < 100 ? 20 : 30}.\n` : `\n✅ Resume signals detected: ${signalCount}/5 sections, ${wordCount} words, contact info: ${hasContactSignals ? 'YES' : 'NO'}. Score honestly based on content quality.\n`}
-${job ? `⚠️ JOB MATCH MODE: Penalise -3 to -8 points for EACH required skill/keyword from the job description that is missing from the resume. List ALL missing job keywords.` : ``}
-
-RESUME TEXT (analyse every word carefully):
-───────────────────────────────────────────
+RESUME:
 ${resume}
-───────────────────────────────────────────
-${job ? `\nJOB DESCRIPTION:\n───────────────────────────────────────────\n${job}\n───────────────────────────────────────────` : ``}
+${job ? `\nJOB DESCRIPTION:\n${job}` : ""}
 
-PER-CATEGORY SCORING INSTRUCTIONS:
-• formatting   → 0–15 if no clear sections; 16–40 if some structure but inconsistent; 41–65 if clean sections; 66–85 if professional and ATS-friendly; 86–100 if perfectly structured
-• keywords     → 0–15 if no industry terms; 16–35 if few; 36–60 if moderate;${job ? ` 61–100 based on % of job keywords matched` : ` 61–100 if keyword-rich and industry-relevant`}
-• workExperience → 0 if no jobs listed; 1–30 if listed with no descriptions; 31–55 if described but no metrics; 56–75 if strong descriptions; 76–100 if quantified achievements with action verbs
-• education    → 0 if completely absent; 10–35 if vague mention; 36–65 if degree+school present; 66–85 if complete (degree, school, year); 86–100 if includes GPA/honours/relevant coursework
-• skills       → 0 if no skills section exists; 15–35 if only 1–3 skills; 36–60 if moderate list; 61–80 if comprehensive; 81–100 if categorised with proficiency levels
-• contactInfo  → 0 if no contact info; 15–35 if only name; 36–60 if name+email only; 61–80 if name+email+phone; 81–100 if also includes LinkedIn/GitHub/portfolio
-
-RESPOND ONLY with this exact JSON — zero markdown, zero backticks, zero extra text:
+Respond ONLY with valid JSON (no markdown, no backticks):
 {
-  "overallScore": <integer 0-100, calculated as weighted average: formatting 15% + keywords 20% + workExperience 30% + education 15% + skills 10% + contactInfo 10%, then apply hard rules above>,
-  "categoryScores": {
-    "formatting": <0-100>,
-    "keywords": <0-100>,
-    "workExperience": <0-100>,
-    "education": <0-100>,
-    "skills": <0-100>,
-    "contactInfo": <0-100>
-  },
-  "summary": "<2-3 sentences: state the overall quality honestly, name the biggest strength and the most critical weakness. If not a resume, say exactly what the content appears to be>",
-  "strengths": ["<genuine specific strength — quote actual content if possible>", "<strength 2>", "<strength 3 or 'None identified' if not a resume>"],
-  "criticalIssues": ["<specific issue 1 — name the exact missing/weak element>", "<specific issue 2>", "<specific issue 3>"],
+  "overallScore": <0-100>,
+  "categoryScores": { "formatting": <0-100>, "keywords": <0-100>, "workExperience": <0-100>, "education": <0-100>, "skills": <0-100>, "contactInfo": <0-100> },
+  "summary": "<2-3 sentence assessment>",
+  "strengths": ["<strength>", "<strength>", "<strength>"],
+  "criticalIssues": ["<issue>", "<issue>", "<issue>"],
   "suggestions": [
-    { "category": "<category>", "priority": "<High|Medium|Low>", "title": "<specific actionable title>", "description": "<clear what to fix and why it matters for ATS>", "example": "<concrete before/after example or empty string>" }
+    { "category": "<cat>", "priority": "<High|Medium|Low>", "title": "<title>", "description": "<desc>", "example": "<example or empty>" }
   ],
-  "missingKeywords": ["<keyword 1>", "<keyword 2>", "<keyword 3>", "<keyword 4>", "<keyword 5>"],
-  "detectedKeywords": ["<keyword 1>", "<keyword 2>", "<keyword 3>", "<keyword 4>", "<keyword 5>"],
-  "atsCompatibility": {
-    "parseable": <true ONLY if clearly structured with labelled section headers>,
-    "hasQuantifiedAchievements": <true ONLY if specific numbers, percentages, or dollar amounts appear in work experience>,
-    "hasActionVerbs": <true ONLY if 3+ strong action verbs like led/built/increased/designed/managed appear>,
-    "appropriateLength": <true ONLY if resume is between 300 and 1200 words>,
-    "consistentFormatting": <true ONLY if consistent date formats, bullet styles, and section structure throughout>
-  }
+  "missingKeywords": ["<kw>", "<kw>", "<kw>", "<kw>", "<kw>"],
+  "detectedKeywords": ["<kw>", "<kw>", "<kw>", "<kw>", "<kw>", "<kw>"],
+  "atsCompatibility": { "parseable": <bool>, "hasQuantifiedAchievements": <bool>, "hasActionVerbs": <bool>, "appropriateLength": <bool>, "consistentFormatting": <bool> }
 }`;
+
   try {
     const res = await fetch("/api/analyze", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: [{ role: "user", content: prompt }] })
+      body: JSON.stringify({
+        model: "claude-sonnet-4-5-20251001",
+        max_tokens: 2000,
+        messages: [{ role: "user", content: prompt }]
+      })
     });
 
     if (!res.ok) {
@@ -608,6 +1180,8 @@ RESPOND ONLY with this exact JSON — zero markdown, zero backticks, zero extra 
 
     const data = await res.json();
     const text = (data.content || []).map(i => i.text || '').join('');
+
+    // Extract JSON even if wrapped in markdown
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (!jsonMatch) throw new Error('No JSON found in response');
     const result = JSON.parse(jsonMatch[0]);
@@ -625,13 +1199,17 @@ RESPOND ONLY with this exact JSON — zero markdown, zero backticks, zero extra 
   }
 }
 
-function scoreColor(s) { return s >= 76 ? '#56cfad' : s >= 61 ? '#f4b942' : s >= 46 ? '#ff9a7b' : '#ff6b6b'; }
+function scoreColor(s) {
+  if (s >= 80) return '#56cfad';
+  if (s >= 60) return '#f4b942';
+  return '#ff6b6b';
+}
+
 function scoreGrade(s) {
-  if (s >= 89) return { label: '🎉 Excellent!', color: '#56cfad' };
-  if (s >= 76) return { label: '👍 Good', color: '#f4b942' };
-  if (s >= 61) return { label: '🔧 Average — needs work', color: '#ff9a7b' };
-  if (s >= 26) return { label: '🚨 Poor — major improvements needed', color: '#ff6b6b' };
-  return { label: '❌ Not a valid resume', color: '#c0392b' };
+  if (s >= 85) return { label: '🎉 Excellent!', color: '#56cfad' };
+  if (s >= 70) return { label: '👍 Good', color: '#f4b942' };
+  if (s >= 55) return { label: '🔧 Fair — needs some work', color: '#ff9a7b' };
+  return { label: '🚨 Needs significant improvement', color: '#ff6b6b' };
 }
 
 const catMeta = {
@@ -650,6 +1228,7 @@ const priorityStyle = {
 };
 
 function renderResults(r) {
+  // Score
   const grade = scoreGrade(r.overallScore);
   document.getElementById('scoreNumber').textContent = r.overallScore;
   document.getElementById('scoreNumber').style.color = scoreColor(r.overallScore);
@@ -657,6 +1236,7 @@ function renderResults(r) {
   document.getElementById('scoreGrade').style.color = grade.color;
   document.getElementById('scoreSummary').textContent = r.summary;
 
+  // Categories
   const cGrid = document.getElementById('categoriesGrid');
   cGrid.innerHTML = '';
   Object.entries(r.categoryScores).forEach(([key, val], i) => {
@@ -665,38 +1245,83 @@ function renderResults(r) {
     const div = document.createElement('div');
     div.className = 'cat-card';
     div.style.animationDelay = (i * 0.08) + 's';
-    div.innerHTML = `<div class="cat-icon">${m.icon}</div><div class="cat-name">${m.name}</div><div class="cat-score" style="color:${color}">${val}</div><div class="progress-track"><div class="progress-fill" style="background:${color}" data-width="${val}"></div></div>`;
+    div.innerHTML = `
+      <div class="cat-icon">${m.icon}</div>
+      <div class="cat-name">${m.name}</div>
+      <div class="cat-score" style="color:${color}">${val}</div>
+      <div class="progress-track"><div class="progress-fill" style="background:${color}" data-width="${val}"></div></div>`;
     cGrid.appendChild(div);
   });
 
-  document.getElementById('strengthsList').innerHTML = r.strengths.map(s => `<div class="si-item"><div class="si-dot" style="background:#56cfad"></div><span>${s}</span></div>`).join('');
-  document.getElementById('issuesList').innerHTML = r.criticalIssues.map(s => `<div class="si-item"><div class="si-dot" style="background:#ff6b6b"></div><span>${s}</span></div>`).join('');
+  // Strengths
+  const sl = document.getElementById('strengthsList');
+  sl.innerHTML = r.strengths.map(s => `<div class="si-item"><div class="si-dot" style="background:#56cfad"></div><span>${s}</span></div>`).join('');
 
-  document.getElementById('suggestionsList').innerHTML = r.suggestions.map((s, i) => {
+  // Issues
+  const il = document.getElementById('issuesList');
+  il.innerHTML = r.criticalIssues.map(s => `<div class="si-item"><div class="si-dot" style="background:#ff6b6b"></div><span>${s}</span></div>`).join('');
+
+  // Suggestions
+  const sugs = document.getElementById('suggestionsList');
+  sugs.innerHTML = r.suggestions.map((s, i) => {
     const ps = priorityStyle[s.priority] || priorityStyle.Low;
-    const bc = { High: '#ff6b6b', Medium: '#f4b942', Low: '#56cfad' };
-    return `<div class="suggestion" style="border-left-color:${bc[s.priority]};animation-delay:${i*0.06}s">
-      <div class="sug-header"><span class="priority-pill" style="background:${ps.bg};color:${ps.color};border:1.5px solid ${ps.border}">${s.priority}</span><span class="sug-title">${s.title}</span><span class="sug-cat">${s.category}</span></div>
+    const borderColors = { High: '#ff6b6b', Medium: '#f4b942', Low: '#56cfad' };
+    return `<div class="suggestion" style="border-left-color:${borderColors[s.priority]};animation-delay:${i*0.06}s">
+      <div class="sug-header">
+        <span class="priority-pill" style="background:${ps.bg};color:${ps.color};border:1.5px solid ${ps.border}">${s.priority}</span>
+        <span class="sug-title">${s.title}</span>
+        <span class="sug-cat">${s.category}</span>
+      </div>
       <div class="sug-desc">${s.description}</div>
       ${s.example ? `<div class="sug-example"><div class="sug-example-label">Example</div>${s.example}</div>` : ''}
     </div>`;
   }).join('');
 
-  document.getElementById('keywordsGrid').innerHTML = `
-    <div class="kw-card"><div class="kw-title" style="color:#2d9b7f">✓ Found in Your Resume</div><div class="kw-chips">${(r.detectedKeywords||[]).map((k,i)=>`<span class="chip chip-good" style="animation-delay:${i*0.05}s">${k}</span>`).join('')}</div></div>
-    <div class="kw-card"><div class="kw-title" style="color:#c0392b">✗ Missing Keywords</div><div class="kw-chips">${(r.missingKeywords||[]).map((k,i)=>`<span class="chip chip-miss" style="animation-delay:${i*0.05}s">${k}</span>`).join('')}</div></div>`;
+  // Keywords
+  const kGrid = document.getElementById('keywordsGrid');
+  kGrid.innerHTML = `
+    <div class="kw-card">
+      <div class="kw-title" style="color:#2d9b7f">✓ Found in Your Resume</div>
+      <div class="kw-chips">${(r.detectedKeywords||[]).map((k,i) => `<span class="chip chip-good" style="animation-delay:${i*0.05}s">${k}</span>`).join('')}</div>
+    </div>
+    <div class="kw-card">
+      <div class="kw-title" style="color:#c0392b">✗ Missing Keywords</div>
+      <div class="kw-chips">${(r.missingKeywords||[]).map((k,i) => `<span class="chip chip-miss" style="animation-delay:${i*0.05}s">${k}</span>`).join('')}</div>
+    </div>`;
 
-  const checkDefs = [['parseable','Machine-parseable format'],['hasQuantifiedAchievements','Quantified achievements with numbers'],['hasActionVerbs','Strong action verbs throughout'],['appropriateLength','Appropriate resume length'],['consistentFormatting','Consistent formatting style']];
-  document.getElementById('checklistItems').innerHTML = checkDefs.map(([key, label], i) => {
+  // Checklist
+  const checkDefs = [
+    ['parseable', 'Machine-parseable format'],
+    ['hasQuantifiedAchievements', 'Quantified achievements with numbers'],
+    ['hasActionVerbs', 'Strong action verbs throughout'],
+    ['appropriateLength', 'Appropriate resume length'],
+    ['consistentFormatting', 'Consistent formatting style']
+  ];
+  const cl = document.getElementById('checklistItems');
+  cl.innerHTML = checkDefs.map(([key, label], i) => {
     const v = r.atsCompatibility[key];
-    return `<div class="check-item" style="animation-delay:${i*0.08}s"><div class="check-icon" style="background:${v?'rgba(86,207,173,0.12)':'rgba(255,107,107,0.1)'};color:${v?'#2d9b7f':'#c0392b'}">${v?'✓':'✗'}</div><span>${label}</span><span style="margin-left:auto;font-size:0.75rem;font-weight:700;color:${v?'#56cfad':'#ff9a7b'}">${v?'Pass':'Fix This'}</span></div>`;
+    return `<div class="check-item" style="animation-delay:${i*0.08}s">
+      <div class="check-icon" style="background:${v ? 'rgba(86,207,173,0.12)' : 'rgba(255,107,107,0.1)'}; color:${v ? '#2d9b7f' : '#c0392b'}">
+        ${v ? '✓' : '✗'}
+      </div>
+      <span>${label}</span>
+      <span style="margin-left:auto;font-size:0.75rem;font-weight:700;color:${v ? '#56cfad' : '#ff9a7b'}">${v ? 'Pass' : 'Fix This'}</span>
+    </div>`;
   }).join('');
 
+  // Show
   document.getElementById('resultsView').classList.add('show');
   window.scrollTo({ top: document.getElementById('tool').offsetTop - 40, behavior: 'smooth' });
 
-  setTimeout(() => { document.querySelectorAll('.progress-fill').forEach(el => { el.style.width = el.dataset.width + '%'; }); }, 200);
-  if (r.overallScore >= 76) launchConfetti();
+  // Animate progress bars
+  setTimeout(() => {
+    document.querySelectorAll('.progress-fill').forEach(el => {
+      el.style.width = el.dataset.width + '%';
+    });
+  }, 200);
+
+  // Confetti if score >= 75
+  if (r.overallScore >= 75) launchConfetti();
 }
 
 function launchConfetti() {
@@ -706,7 +1331,15 @@ function launchConfetti() {
       const p = document.createElement('div');
       p.className = 'particle';
       const size = Math.random() * 10 + 6;
-      p.style.cssText = `width:${size}px;height:${size*(Math.random()>0.5?1:2.5)}px;background:${colors[Math.floor(Math.random()*colors.length)]};left:${Math.random()*100}vw;top:-20px;border-radius:${Math.random()>0.5?'50%':'3px'};animation-duration:${Math.random()*2+2}s;animation-delay:${Math.random()*0.5}s;`;
+      p.style.cssText = `
+        width:${size}px;height:${size * (Math.random() > 0.5 ? 1 : 2.5)}px;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        left:${Math.random()*100}vw;
+        top:-20px;
+        border-radius:${Math.random() > 0.5 ? '50%' : '3px'};
+        animation-duration:${Math.random()*2+2}s;
+        animation-delay:${Math.random()*0.5}s;
+      `;
       document.body.appendChild(p);
       setTimeout(() => p.remove(), 3000);
     }, i * 60);
