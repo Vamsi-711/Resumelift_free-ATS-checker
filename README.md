@@ -45,10 +45,10 @@ Buit by Vamsi Markandeya.
 ---
 
 ## 🔑 Get an Anthropic API Key
-1. Go to https://console.anthropic.com
-2. Sign up (free credits included)
+1. Go to https://console.groq.com/
+2. Sign up 
 3. Go to **API Keys** → **Create Key**
-4. Copy the key (starts with `sk-ant-api03-...`)
+4. Copy the key 
 
 ---
 
