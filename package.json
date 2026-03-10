@@ -1,0 +1,12 @@
+{
+  "name": "resumelift",
+  "version": "1.0.0",
+  "description": "ATS Resume Scorer — powered by Claude AI",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
